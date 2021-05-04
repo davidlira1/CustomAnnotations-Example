@@ -2,12 +2,25 @@ package com.galvanize.annotations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.galvanize.model.Person;
+//import com.galvanize.model.Person;
 import org.junit.Test;
 
 
 public class JsonSerializerUnitTest {
+
+    @Test
+    public void personClassHasJsonSerializableAnnotation() {
+        //SETUP
+        Person person = new Person("John", "Volland", "25");
+        Class<?> clazz = person.getClass();
+
+        //EXECUTION
+        boolean actual = clazz.isAnnotationPresent(JsonSerializable.class);
+
+        assertTrue(actual, "Person class should have a JsonSerializable class");
+    }
 
     @Test
     public void givenObjectNotSerializedThenExceptionThrown() throws JsonSerializationException {
